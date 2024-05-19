@@ -115,7 +115,7 @@ Primero creamos una sesión de Spark para definir dónde está corriendo nuestro
 ```python
 from pyspark.sql import SparkSession
 
-spark = SparkSession.builder     .master("spark://spark-master:7077")     .appName("MongoDBAtlasConnection")     .getOrCreate()
+spark = SparkSession.builder.master("spark://spark-master:7077").appName("MongoDBAtlasConnection").getOrCreate()
 ```
 
 ### Definición del Esquema
@@ -173,7 +173,7 @@ dfclean.writeStream.outputMode("append").format("console").start().awaitTerminat
 Escribimos los datos de streaming en MongoDB Atlas estableciendo una conexión mientras creamos la sesión de Spark.
 
 ```python
-spark = SparkSession.builder     .master("spark://spark-master:7077")     .appName("MongoDBAtlasConnection")     .config("spark.mongodb.input.uri", "mongodb+srv://username:password@cluster0.mongodb.net/iabd.people")     .config("spark.mongodb.output.uri", "mongodb+srv://username:password@cluster0.mongodb.net/iabd.people")     .config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.12:3.0.1")     .getOrCreate()
+spark = SparkSession.builder.master("spark://spark-master:7077").appName("MongoDBAtlasConnection").config("spark.mongodb.input.uri", "mongodb+srv://username:password@cluster0.mongodb.net/iabd.people").config("spark.mongodb.output.uri", "mongodb+srv://username:password@cluster0.mongodb.net/iabd.people").config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.12:3.0.1").getOrCreate()
 
 def write_row(df, batch_id):
     df.write.format("mongodb").mode("append").save()
